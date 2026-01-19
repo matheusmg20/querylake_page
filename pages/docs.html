@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação | QueryLake</title>
+    <link rel="stylesheet" href="./../css/style.css"> 
+    <link rel="stylesheet" href="./../css/docs.css">
+    <link rel="shortcut icon" href="./../assets/logo.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body class="docs-body">
+
+    <button class="menu-toggle" id="mobile-menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#020617" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <img src="./../assets/logo.png" alt="QueryLake">
+                <span class="text_logo">Query<span class="text_logo_destaque">Lake</span></span>
+            </div>
+            <p class="docs-version">by Mattheus Designer</p>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <div class="nav-group">
+                <h3>Introdução</h3>
+                <a href="#sobre" class="active">Sobre o QueryLake</a>
+                <a href="#instalacao">Instalação</a>
+            </div>
+            
+            <div class="nav-group">
+                <h3>Core Engine</h3>
+                <a href="#duckdb">Motor DuckDB</a>
+                <a href="#formatos">Formatos e Ícones</a>
+                <a href="#schema">Schema da Tabela</a>
+            </div>
+
+            <div class="nav-group">
+                <h3>Produtividade</h3>
+                <a href="#biblioteca">Biblioteca de Queries</a>
+                <a href="#historico">Histórico Automático</a>
+                <a href="#dashboards">Visualização BI</a>
+            </div>
+
+            <div class="nav-group">
+                <h3>Referência</h3>
+                <a href="#atalhos">Atalhos de Teclado</a>
+                <a href="https://github.com/matheusmg20/querylake_releases/releases/" target="_blank">GitHub</a>
+                <a href="../index.html" style="background-color: #020617;">Sair da Docs</a>
+            </div>
+        </nav>
+    </aside>
+
+    <main class="docs-main">
+        <div class="main-container">
+            <article class="docs-article">
+                
+                <section id="sobre">
+                    <h1>Sobre o QueryLake</h1>
+                    <p>O QueryLake é uma engine de ponta projetada para processar milhões de linhas sem travar sua máquina. Diferente de ferramentas tradicionais, ele combina a velocidade do DuckDB com a simplicidade do SQL moderno.</p>
+                    
+                    <div class="info-box">
+                        <strong>💡 Performance Local:</strong> Todo o processamento ocorre in-memory no seu computador, garantindo segurança e velocidade extrema.
+                    </div>
+                </section>
+
+                <hr class="docs-divider">
+
+                <section id="instalacao">
+                    <h2>Instalação e Configuração</h2>
+                    <p>O QueryLake foi desenvolvido para ser uma solução <strong>Plug-and-Play</strong>. Diferente de outros ecossistemas SQL que exigem a instalação de servidores pesados ou configurações complexas de portas e firewalls, o QueryLake é distribuído como um executável nativo otimizado para a arquitetura Windows.</p>
+                    
+                    <p>Ao iniciar o instalador, o sistema realiza automaticamente a extração dos binários do motor DuckDB e configura as bibliotecas de runtime necessárias para o processamento <em>In-Memory</em>. Isso garante que, logo após a instalação, você já tenha um ambiente de Big Data pronto para operar localmente.</p>
+
+                    <div class="info-box">
+                        <strong>⚡ Nota de Desempenho:</strong> Durante a primeira execução, o QueryLake otimiza o cache do sistema para garantir que a leitura de arquivos Parquet seja feita através de <em>Memory Mapping</em>, reduzindo drasticamente o uso de CPU em grandes volumes de dados.
+                    </div>
+
+                    <h3>Passo a Passo</h3>
+                    <ol class="docs-list">
+                        <li><strong>Download do Pacote:</strong> Acesse o repositório oficial no GitHub ou o site do projeto e baixe a versão mais recente do instalador <code>.exe</code>.</li>
+                        <li><strong>Execução e Permissões:</strong> Execute o arquivo como administrador para que o sistema possa registrar as extensões de arquivo <code>.parquet</code> e <code>.sql</code> no seu registro do Windows.</li>
+                        <li><strong>Finalização:</strong> Aguarde a barra de progresso. Ao concluir, o QueryLake criará um atalho na sua área de trabalho e estará pronto para uso imediato, sem necessidade de reiniciar a máquina.</li>
+                    </ol>
+
+                    <h3>Requisitos do Sistema</h3>
+                    <p>Para garantir a fluidez nas consultas de milhões de linhas, recomendamos as seguintes especificações mínimas:</p>
+                    <ul class="docs-list">
+                        <li><strong>Sistema Operacional:</strong> Windows 10 ou superior (64-bit).</li>
+                        <li><strong>Memória RAM:</strong> Mínimo de 4GB (8GB recomendado para datasets acima de 10GB).</li>
+                        <li><strong>Espaço em Disco:</strong> 400MB para instalação (o processamento é feito em memória).</li>
+                        <li><strong>Processador:</strong> Dual-core com suporte a instruções AVX2 (essencial para a velocidade do motor DuckDB).</li>
+                    </ul>
+                </section>
+
+                <section id="duckdb">
+                    <h2>Motor de Processamento: DuckDB</h2>
+                    <p>O coração analítico do QueryLake é o motor <strong>DuckDB</strong>, amplamente reconhecido na indústria como o "SQLite para Analytics". Diferente dos bancos de dados tradicionais (Row-oriented), o DuckDB utiliza um sistema de armazenamento e processamento <strong>Colunar</strong>.</p>
+                    
+                    <p>Essa arquitetura é o que permite ao QueryLake processar milhões de registros em frações de segundo. Se você possui um arquivo <code>.parquet</code> com 500 colunas, mas sua query solicita apenas 2, o motor ignora os outros 498 campos, reduzindo drasticamente o tráfego de I/O e o uso de memória RAM.</p>
+
+                    <div class="info-box">
+                        <strong>🚀 Vetorização de Queries:</strong> O DuckDB não processa uma linha por vez. Ele opera em "vetores" de dados, aproveitando as instruções SIMD dos processadores modernos para realizar cálculos em paralelo no nível do hardware.
+                    </div>
+
+                    <h3>Por que usar DuckDB no QueryLake?</h3>
+                    <p>A integração nativa oferece vantagens que ferramentas baseadas em nuvem não conseguem replicar localmente:</p>
+                    <ul class="docs-list">
+                        <li><strong>Latência Zero:</strong> Sem necessidade de upload para servidores remotos; o dado é lido diretamente do seu SSD.</li>
+                        <li><strong>Otimização de Tipos:</strong> Reconhecimento inteligente de tipos complexos como <code>STRUCT</code>, <code>LIST</code> e <code>MAP</code> dentro de arquivos Parquet.</li>
+                        <li><strong>Consumo Inteligente:</strong> O motor escala o uso de threads de acordo com a disponibilidade do seu processador, garantindo que o sistema não trave durante queries pesadas.</li>
+                    </ul>
+
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="code-title">Exemplo de Consulta Analítica</span>
+                        </div>
+                        <pre class="code-block">
+                            <code>
+-- O QueryLake entende o caminho do arquivo como uma tabela
+
+SELECT 
+    categoria, 
+    SUM(valor) AS total_vendas,
+    COUNT(*) AS registros
+FROM 'vendas_2026.parquet'
+WHERE status = 'concluido'
+GROUP BY categoria
+ORDER BY total_vendas DESC
+LIMIT 10;
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+
+                <section id="formatos">
+                    <h2>Formatos e Integração Nativa</h2>
+                    <p>O QueryLake foi construído sob o paradigma de <strong>Open Table Formats</strong>, garantindo que você nunca fique preso a um formato proprietário. O sistema oferece suporte de leitura e escrita otimizado para os padrões mais utilizados na engenharia de dados moderna: <strong>Apache Parquet e CSV</strong>.</p>
+                    
+                    <p>Enquanto o CSV é excelente para interoperabilidade simples, o QueryLake aproveita o máximo do formato Parquet para realizar operações de <em>Pushdown</em>. Isso significa que filtros de data ou valores específicos são processados antes mesmo do arquivo ser totalmente carregado na memória, economizando recursos computacionais preciosos.</p>
+
+                    <div class="info-box">
+                        <strong>🎨 Experiência Visual:</strong> Ao instalar o QueryLake, o sistema registra automaticamente uma associação de arquivos no Windows. Arquivos com extensão <code>.parquet</code> passam a exibir o ícone exclusivo do QueryLake no Explorer, permitindo que você abra seus datasets com um clique duplo, como se fossem planilhas comuns.
+                    </div>
+
+                    <h3>Ecossistema de Dados Suportado</h3>
+                    <p>A versatilidade do motor analítico permite que o QueryLake atue como uma ponte entre diferentes fontes de dados localmente:</p>
+                    <ul class="docs-list">
+                        <li><strong>Apache Parquet:</strong> O padrão ouro para Big Data. Suporta compressão Snappy e ZSTD integrada, permitindo ler arquivos de gigabytes em segundos.</li>
+                        <li><strong>CSV (Delimited):</strong> Suporte a leitura de arquivos delimitados com detecção automática de <em>headers</em>, separadores (vírgula, ponto e vírgula, pipe) e codificação (UTF-8, Latin-1).</li>
+                    </ul>
+
+                    <p>Além da leitura, o QueryLake permite a exportação dos resultados tratados. Isso significa que você pode limpar um CSV sujo via SQL e salvá-lo como um Parquet altamente otimizado para ser utilizado em ferramentas de BI como Power BI ou Tableau.</p>
+                </section>
+
+                <section id="schema">
+                    <h2>Schema & Tipagem de Dados</h2>
+                    <p>Uma das etapas mais críticas em qualquer análise de dados é a compreensão da estrutura subjacente do dataset. A funcionalidade de <strong>Schema</strong> do QueryLake oferece uma visão profunda e instantânea da arquitetura do seu arquivo, eliminando a adivinhação e reduzindo erros de conversão em consultas complexas.</p>
+                    
+                    <p>Ao carregar um arquivo, o motor DuckDB realiza uma varredura nos metadados para identificar não apenas o nome das colunas, mas a precisão exata de cada tipo de dado. Isso é essencial para garantir a integridade da sua análise, especialmente ao lidar com grandes volumes onde um erro de tipagem pode interromper o processamento.</p>
+
+                    <div class="info-box">
+                        <strong>🔍 Detecção de Nullables:</strong> O QueryLake informa claramente se uma coluna permite valores nulos (NULL). Essa transparência permite que você aplique funções de tratamento como <code>COALESCE</code> ou <code>IFNULL</code> antes mesmo de encontrar registros vazios inesperados durante a agregação.
+                    </div>
+
+                    <h3>Tipagem Suportada</h3>
+                    <p>O QueryLake suporta o sistema de tipos estritos do SQL moderno, garantindo compatibilidade total com pipelines de dados profissionais:</p>
+                    
+                    <div class="table-container">
+                        <table class="docs-table">
+                            <thead>
+                                <tr>
+                                    <th>Categoria</th>
+                                    <th>Tipos Comuns</th>
+                                    <th>Descrição Técnica</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Texto</strong></td>
+                                    <td><code>VARCHAR</code>, <code>TEXT</code></td>
+                                    <td>Cadeias de caracteres UTF-8 de comprimento variável.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Numérico</strong></td>
+                                    <td><code>BIGINT</code>, <code>DOUBLE</code>, <code>DECIMAL</code></td>
+                                    <td>Suporte para inteiros de 64 bits e precisão decimal flutuante.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Temporal</strong></td>
+                                    <td><code>DATE</code>, <code>TIMESTAMP</code></td>
+                                    <td>Reconhecimento automático de formatos de data ISO e Unix Epoch.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Booleano</strong></td>
+                                    <td><code>BOOLEAN</code></td>
+                                    <td>Representação lógica de verdadeiro ou falso (TRUE/FALSE).</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </section>
+
+                <hr class="docs-divider">
+
+                <section id="biblioteca">
+                    <h2>Biblioteca de Queries & Persistência</h2>
+                    <p>O QueryLake foi projetado para ser mais do que um simples executor de scripts; ele funciona como um repositório centralizado para sua inteligência de dados. Através da <strong>Biblioteca de Queries</strong>, você pode organizar e salvar consultas complexas diretamente no seu armazenamento local, eliminando a necessidade de gerenciar múltiplos arquivos <code>.sql</code> espalhados pelo computador.</p>
+                    
+                    <p>Diferente de ferramentas que perdem o progresso ao fechar a aba, o QueryLake mantém um estado de persistência ativa. Isso permite que você interrompa uma análise densa no final do dia e a retome exatamente do mesmo ponto no dia seguinte, com todo o código e estrutura preservados.</p>
+
+                    <div class="info-box">
+                        <strong>📂 Organização por Contexto:</strong> Salve queries com nomes descritivos para diferentes projetos. Você pode ter bibliotecas específicas para "Limpeza de Dados", "Relatórios Financeiros" ou "Inspeção de Log", facilitando o reuso de código e a padronização de processos.
+                    </div>
+
+                    <h3>Vantagens do Gerenciamento Local</h3>
+                    <p>A biblioteca opera de forma totalmente offline, garantindo velocidade instantânea no carregamento de scripts:</p>
+                    <ul class="docs-list">
+                        <li><strong>Acesso Rápido:</strong> Navegue entre suas queries salvas através de um menu intuitivo, sem precisar abrir o explorador de arquivos do Windows.</li>
+                        <li><strong>Segurança Total:</strong> Suas consultas e a lógica do seu negócio nunca saem da sua máquina; nada é enviado para a nuvem.</li>
+                        <li><strong>Automação de Fluxo:</strong> Copie e adapte templates de queries antigas para novos datasets em segundos, aumentando sua produtividade em tarefas repetitivas.</li>
+                    </ul>
+
+                    <p>Esta funcionalidade é ideal para analistas que trabalham com transformações recorrentes, permitindo criar um "dicionário de scripts" pessoal que evolui conforme a complexidade dos seus projetos aumenta.</p>
+                </section>
+
+                <section id="historico">
+                    <h2>Histórico Automático de Execução</h2>
+                    <p>No ritmo acelerado da análise de dados, é comum escrever uma consulta complexa e acabar perdendo-a por fechar uma aba ou realizar uma modificação indesejada. O QueryLake mitiga esse risco através de um sistema de <strong>Log de Persistência</strong>.</p>
+                    
+                    <p>O software monitora silenciosamente todas as interações com o motor SQL e registra automaticamente as <strong>últimas 10 execuções bem-sucedidas</strong>. Esse recurso funciona como um "seguro" para o seu código, permitindo que você experimente novas lógicas sem o medo de perder uma versão anterior que estava funcionando perfeitamente.</p>
+
+                    <div class="info-box">
+                        <strong>🕒 Recuperação em um Clique:</strong> Ao acessar o painel de histórico, você pode visualizar o código completo de queries passadas. Com um simples clique, o QueryLake restaura o script para o editor ativo, economizando o tempo que seria gasto reescrevendo funções ou agregações complexas.
+                    </div>
+
+                    <h3>Destaques do Fluxo de Histórico</h3>
+                    <p>O gerenciamento de histórico foi desenhado para ser discreto e eficiente:</p>
+                    <ul class="docs-list">
+                        <li><strong>Filtro de Sucesso:</strong> Apenas consultas que retornaram dados válidos são arquivadas, evitando que o seu histórico fique poluído com tentativas que continham erros de sintaxe.</li>
+                        <li><strong>Memória Volátil e Segura:</strong> O histórico é mantido para acesso imediato durante sua sessão de trabalho, garantindo que suas consultas mais recentes estejam sempre à mão.</li>
+                        <li><strong>Economia de Tempo:</strong> Perfeito para quando você precisa repetir uma análise feita minutos atrás em um arquivo diferente, bastando apenas alterar a cláusula <code>FROM</code>.</li>
+                    </ul>
+
+                    <p>Essa funcionalidade transforma o QueryLake em um ambiente de desenvolvimento experimental seguro, onde o usuário tem liberdade total para testar hipóteses sobre os dados sabendo que seu histórico de progresso está sendo preservado.</p>
+                </section>
+
+                <section id="dashboards">
+                    <h2>Visualização Gráfica e BI</h2>
+                    <p>A grande inovação do QueryLake reside na capacidade de transpor a barreira entre o código SQL e a interpretação visual. Mais do que apenas retornar tabelas de texto, o sistema permite transformar o resultado de qualquer consulta em um gráfico visual instantâneo.</p>
+                    
+                    <p>Esta funcionalidade não é apenas um dashboard estático, mas uma ferramenta de exploração dinâmica. Ao executar uma query, você pode alternar para o modo gráfico para identificar tendências, outliers ou distribuições de forma muito mais intuitiva do que analisando linhas e colunas brutas.</p>
+
+                    <div class="info-box">
+                        <strong>📊 Decisões Visuais em Tempo Real:</strong> Selecione os campos de interesse diretamente na interface e veja os dados ganharem forma. É a ferramenta perfeita para validar hipóteses antes de exportar o dataset final para outras plataformas.
+                    </div>
+
+                    <h3>Recursos de Análise Visual</h3>
+                    <p>O QueryLake oferece flexibilidade para que o analista de dados tenha uma experiência completa de Business Intelligence local:</p>
+                    <ul class="docs-list">
+                        <li><strong>Gráficos de Linha, Barra e Pizza:</strong> Ideais para séries temporais, comparações de categorias e análises de desempenho sazonal.</li>
+                        <li><strong>Exploração de Campos:</strong> Interface "drag-and-drop" (arrastar e soltar) simplificada para definir eixos e legendas a partir dos resultados da sua query atual.</li>
+                        <li><strong>Exportação Rápida:</strong> Após tratar e visualizar seus dados, você pode exportar o resultado final para um novo arquivo CSV ou Parquet com apenas um clique, mantendo a integridade da sua limpeza.</li>
+                    </ul>
+
+                    <p>Essa abordagem de "Visualização First" economiza horas de trabalho que seriam gastas movendo dados para ferramentas externas apenas para uma conferência visual rápida, centralizando todo o pipeline analítico dentro do QueryLake.</p>
+                </section>
+
+                <hr class="docs-divider">
+
+                <section id="atalhos">
+                    <h2>Atalhos de Teclado e Produtividade</h2>
+                    <p>O QueryLake integra o motor CodeMirror com configurações personalizadas para oferecer uma experiência de desenvolvimento fluida. Os atalhos foram mapeados para serem intuitivos para usuários que já utilizam editores modernos, permitindo a manipulação de blocos de código sem tirar as mãos do teclado.</p>
+
+                    <div class="table-container">
+                        <table class="docs-table">
+                            <thead>
+                                <tr>
+                                    <th>Ação</th>
+                                    <th>Atalho</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><strong>Executar em Modo Tabela</strong></td><td><kbd>Shift</kbd> + <kbd>Enter</kbd></td></tr>
+                                <tr><td><strong>Executar em Modo BI (Gráfico)</strong></td><td><kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>Enter</kbd></td></tr>
+                                <tr><td>Executar Query Atual</td><td><kbd>Ctrl</kbd> + <kbd>Enter</kbd></td></tr>
+                                
+                                <tr><td>Auto-completar SQL</td><td><kbd>Ctrl</kbd> + <kbd>Space</kbd></td></tr>
+                                <tr><td>Selecionar próxima ocorrência</td><td><kbd>Ctrl</kbd> + <kbd>D</kbd></td></tr>
+                                <tr><td>Selecionar todas as ocorrências</td><td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>L</kbd></td></tr>
+                                <tr><td>Comentário em Bloco</td><td><kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>A</kbd></td></tr>
+                                
+                                <tr><td>Duplicar Linha (Cima/Baixo)</td><td><kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>↑ / ↓</kbd></td></tr>
+                                <tr><td>Mover Linha (Cima/Baixo)</td><td><kbd>Alt</kbd> + <kbd>↑ / ↓</kbd></td></tr>
+                                
+                                <tr><td>Busca Persistente</td><td><kbd>Ctrl</kbd> + <kbd>F</kbd></td></tr>
+                                <tr><td>Limpar Console</td><td><kbd>Ctrl</kbd> + <kbd>L</kbd></td></tr>
+                                <tr><td>Nova Aba de Consulta</td><td><kbd>Ctrl</kbd> + <kbd>T</kbd></td></tr>
+                                <tr><td>Salvar Resultado/Script</td><td><kbd>Ctrl</kbd> + <kbd>S</kbd></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="info-box">
+                        <strong>💡 Dica Pro:</strong> O editor conta com <em>Syntax Highlighting</em> inteligente e suporte a múltiplas abas. Você pode arrastar arquivos diretamente para a área de consulta para carregá-los instantaneamente.
+                    </div>
+                </section>
+
+            </article>
+
+            <footer class="docs-footer">
+                <div class="footer-content">
+                    <div class="footer-left">
+                        <p>© 2026 QueryLake. Desenvolvido por <strong>Mattheus Designer</strong>.</p>
+                    </div>
+                    <div class="footer-right">
+                        <a href="../index.html">Início</a>
+                        <a href="https://github.com/matheusmg20" target="_blank">GitHub</a>
+                        <a href="#sobre">Topo ↑</a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </main>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            let current = "";
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.sidebar-nav a');
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 120) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+    <script src="./../js/toggle_sidebar.js"></script>
+</body>
+</html>

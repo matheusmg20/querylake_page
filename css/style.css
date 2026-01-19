@@ -370,6 +370,10 @@ img, button, a{
     scrollbar-color: rgba(255, 255, 255, 0.1) var(--bg-dark);
 }
 
+section{
+    scroll-margin-top: 120px;
+}
+
 /* --- RESPONSIVIDADE COMPLETA --- */
 
 @media (max-width: 1024px) {
