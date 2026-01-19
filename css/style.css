@@ -376,3 +376,97 @@ img, button, a{
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.1) var(--bg-dark);
 }
+
+/* --- RESPONSIVIDADE COMPLETA --- */
+
+@media (max-width: 1024px) {
+    .features-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+        padding: 40px 5%; 
+    }
+}
+
+@media (max-width: 768px) {
+    /* Ajustes Gerais */
+    body { font-size: 14px; }
+    
+    /* Navbar Mobile */
+    .navbar { padding: 1rem 5%; }
+    .nav-links { display: none; } /* Esconde links para focar no CTA ou Menu se houver */
+    
+    /* Hero Section */
+    .hero { padding: 140px 5% 60px; }
+    .hero h1 { font-size: 2.8rem; letter-spacing: -1px; }
+    .hero p { font-size: 1rem; margin-bottom: 2rem; }
+    
+    .cta-group { 
+        flex-direction: column; 
+        width: 100%; 
+        gap: 1.5rem; 
+    }
+    .btn-primary, .btn-secondary { 
+        width: 100%; 
+        text-align: center; 
+    }
+
+    /* Showcase (Janela do App) */
+    .showcase { padding: 20px 5% 40px; }
+    .window-frame { border-radius: 12px; }
+
+    /* Tech Stack (Engenharia) */
+    .compatibility { padding: 40px 5%; }
+    .section-title { font-size: 1.8rem; }
+    .tech-stack { 
+        flex-direction: column; 
+        gap: 1.5rem; 
+        padding: 2rem 1rem;
+    }
+    .tech-item { width: 100%; text-align: center; }
+    .tech-divider { 
+        width: 60px; 
+        height: 1px; 
+        margin: 0 auto; 
+    }
+
+    /* Features Grid */
+    .features-grid { 
+        grid-template-columns: 1fr; 
+        gap: 1.5rem; 
+        padding-bottom: 60px;
+    }
+    .card { padding: 2rem; }
+
+    /* Footer */
+    .footer { padding: 40px 5% 30px; }
+    .footer-content { 
+        flex-direction: column; 
+        text-align: center; 
+        align-items: center; 
+        gap: 30px; 
+    }
+    .footer-brand {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .footer-tagline { max-width: 100%; margin-bottom: 10px; }
+    .footer-right { 
+        align-items: center; 
+        width: 100%;
+    }
+    .footer-links { 
+        flex-direction: column; 
+        gap: 1rem; 
+        align-items: center;
+    }
+    .footer-bottom { 
+        font-size: 0.75rem; 
+        line-height: 1.4;
+    }
+}
+
+/* Ajuste Extra para Telas Muito Pequenas (iPhone SE / etc) */
+@media (max-width: 380px) {
+    .hero h1 { font-size: 2.2rem; }
+    .text_logo { font-size: 1.3rem; }
+}
