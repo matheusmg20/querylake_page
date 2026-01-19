@@ -1,4 +1,3 @@
-// Impede a restauração automática do scroll do navegador
 if (history.scrollRestoration) {
     history.scrollRestoration = 'manual';
 }
@@ -7,7 +6,7 @@ if (history.scrollRestoration) {
 window.addEventListener('load', () => {
     setTimeout(() => {
         window.scrollTo(0, 0);
-    }, 10); // Pequeno atraso para garantir a execução após o render
+    }, 10);
 });
 
 // Efeito Parallax no fundo

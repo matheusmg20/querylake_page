@@ -146,7 +146,6 @@ img, button, a{
     margin: 0 auto;
 }
 
-/* Nomes de classes específicos para não quebrar outros h2/p do site */
 .section-title {
     font-size: 2.5rem;
     font-weight: 800;
@@ -201,7 +200,7 @@ img, button, a{
     background: var(--border-color);
 }
 
-/* --- FEATURES GRID (CORRIGIDO) --- */
+/* --- FEATURES GRID --- */
 .features-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Força 3 colunas no desktop */
@@ -303,9 +302,8 @@ img, button, a{
     color: var(--accent-blue);
 }
 
-/* Tamanho real do ícone SVG */
 .social-icon {
-    width: 16px;  /* Tamanho pequeno e elegante */
+    width: 16px;  
     height: 16px;
 }
 
@@ -348,17 +346,14 @@ img, button, a{
 
 /* --- CUSTOM SCROLLBAR --- */
 
-/* Largura da barra de scroll */
 ::-webkit-scrollbar {
     width: 10px;
 }
 
-/* Fundo da barra (Track) */
 ::-webkit-scrollbar-track {
     background: var(--bg-dark);
 }
 
-/* O "pegador" da barra (Thumb) */
 ::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
@@ -366,12 +361,10 @@ img, button, a{
     transition: 0.3s;
 }
 
-/* Efeito ao passar o mouse no scroll */
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accent-blue);
 }
 
-/* Suporte para Firefox */
 * {
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.1) var(--bg-dark);
@@ -387,14 +380,11 @@ img, button, a{
 }
 
 @media (max-width: 768px) {
-    /* Ajustes Gerais */
     body { font-size: 14px; }
     
-    /* Navbar Mobile */
     .navbar { padding: 1rem 5%; }
-    .nav-links { display: none; } /* Esconde links para focar no CTA ou Menu se houver */
+    .nav-links { display: none; } 
     
-    /* Hero Section */
     .hero { padding: 140px 5% 60px; }
     .hero h1 { font-size: 2.8rem; letter-spacing: -1px; }
     .hero p { font-size: 1rem; margin-bottom: 2rem; }
@@ -409,11 +399,9 @@ img, button, a{
         text-align: center; 
     }
 
-    /* Showcase (Janela do App) */
     .showcase { padding: 20px 5% 40px; }
     .window-frame { border-radius: 12px; }
 
-    /* Tech Stack (Engenharia) */
     .compatibility { padding: 40px 5%; }
     .section-title { font-size: 1.8rem; }
     .tech-stack { 
@@ -428,7 +416,6 @@ img, button, a{
         margin: 0 auto; 
     }
 
-    /* Features Grid */
     .features-grid { 
         grid-template-columns: 1fr; 
         gap: 1.5rem; 
@@ -436,7 +423,6 @@ img, button, a{
     }
     .card { padding: 2rem; }
 
-    /* Footer */
     .footer { padding: 40px 5% 30px; }
     .footer-content { 
         flex-direction: column; 
@@ -465,7 +451,7 @@ img, button, a{
     }
 }
 
-/* Ajuste Extra para Telas Muito Pequenas (iPhone SE / etc) */
+/* Ajuste Extra para Telas Muito Pequenas */
 @media (max-width: 380px) {
     .hero h1 { font-size: 2.2rem; }
     .text_logo { font-size: 1.3rem; }
